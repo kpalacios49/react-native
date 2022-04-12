@@ -1,18 +1,20 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native'
-
-
+import { useStageContext } from '../context/StageContext';
 
 const NumberSelected = ({ number }) => {
+    const { setStage, setGameState } = useStageContext();
 
-    const StageContext = useContext();
-    console.log('hol;a', StageContext);
+    const startGame = () => {
+        setGameState((gameState) => ({ ...gameState, number: number }))
+        setStage('game');
+    }
 
     return (
         <View style={styles.numberSelected}>
             <Text style={styles.title}>Tu elección</Text>
             {number && <Text style={styles.title}>{number}</Text>}
-            <Button title="Empezar el juego" onPress={() => { }}></Button>
+            <Button title="Empezar el juego" onPress={() => startGame()}></Button>
         </View>
     )
 }
@@ -20,7 +22,7 @@ const NumberSelected = ({ number }) => {
 const styles = StyleSheet.create({
     numberSelected: {
         margin: 20,
-        padding: 10, 
+        padding: 10,
         borderRadius: 10,
         shadowColor: "#000",
         shadowOffset: {

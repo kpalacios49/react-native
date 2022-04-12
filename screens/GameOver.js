@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import React from "react";
+import { View, Text, StyleSheet, Image, Button } from "react-native";
+import { useStageContext } from '../context/StageContext';
 
 const GameOver = ({ option }) => {
-
+    const { gameState, setStage } = useStageContext();
     return (
         <View style={styles.screen}>
-            {option == 'win' ? (
+            {gameState.state == 'win' ? (
                 <>
                     <Image
                         style={{ width: '100%', height: '50%' }}
@@ -19,7 +20,7 @@ const GameOver = ({ option }) => {
                     source={{ uri: 'https://media4.giphy.com/media/eJ4j2VnYOZU8qJU3Py/giphy.gif?cid=ecf05e479iyj74biqtacljl5wufaeg0jwotkqa9cap78pqn2&rid=giphy.gif&ct=g' }}
                 ></Image>
             )}
-
+            <Button title="Reiniciar" onPress={() => { setStage('start')}}></Button>
 
         </View>
     );

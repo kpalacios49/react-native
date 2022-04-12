@@ -1,8 +1,8 @@
 
 import React from 'react';
 
-const stageContext = React.createContext(null);
+const StageContext = React.createContext(null);
 
-const useStageContext = () => React.useContext(stageContext);
+const useStageContext = () => React.useContext(StageContext);
 
-export { stageContext, useStageContext };
+export { StageContext, useStageContext };

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
-import NumberSelected from "../components/NumberSelected";
+import { View, Text, Button, StyleSheet } from "react-native";
+import { useStageContext } from '../context/StageContext';
 
 const GameScreen = ({ numberSelected }) => {
-      const [numberChoosed, setNumberChoosed] = useState(0);
-      const [range, setRange] = useState({low: 1, high: 100})
+    const [numberChoosed, setNumberChoosed] = useState(0);
+    const [range, setRange] = useState({ low: 1, high: 100 })
+    const { setStage, setGameState, gameState } = useStageContext();
+
 
     const generateRandom = (min, max) => {
         var num = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -16,16 +18,20 @@ const GameScreen = ({ numberSelected }) => {
 
     const handleChoosedNumber = (option) => {
 
-        if (range.high - range.low <= 2) { console.log('gano!'); }
-
-        if (option === 'low' && numberChoosed > numberSelected ||
-            option === 'high' && numberChoosed < numberSelected ) {
-                console.log('perdio');
-                return;
+        if ((range.high - range.low) <= 2) {
+            setGameState((gameState) => ({ ...gameState, state: 'win' }))
+            setStage('gameover')
         }
 
-        if(option === 'low') setRange((range) => ({...range, low: numberChoosed}))
-        if(option === 'high') setRange((range) => ({...range, high: numberChoosed}))
+        if (option === 'low' && numberChoosed > numberSelected ||
+            option === 'high' && numberChoosed < numberSelected) {
+            setGameState((gameState) => ({ ...gameState, state: 'lose' }))
+            setStage('gameover')
+            return;
+        }
+
+        if (option === 'low') setRange((range) => ({ ...range, low: numberChoosed }))
+        if (option === 'high') setRange((range) => ({ ...range, high: numberChoosed }))
     }
 
     useEffect(() => {
@@ -36,9 +42,9 @@ const GameScreen = ({ numberSelected }) => {
         <View style={styles.screen}>
             <View style={styles.container}>
                 <Text style={styles.title}>La suposicion del oponente</Text>
-                <Text style={styles.title}>{ numberChoosed }</Text>
+                <Text style={styles.title}>{numberChoosed}</Text>
                 <View style={styles.buttonContainer}>
-                    <Button style={styles.button} title="Menor" onPress={() => handleChoosedNumber('low') } />
+                    <Button style={styles.button} title="Menor" onPress={() => handleChoosedNumber('low')} />
                     <Button
                         style={styles.button}
                         title="Mayor"
