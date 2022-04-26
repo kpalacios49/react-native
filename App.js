@@ -1,9 +1,9 @@
 import React from 'react'
 
-import ShopNavigator from './navigation/ShopNavigator'
+import TabNavigator from './navigation/tab/TabNavigator'
 
 export default function App() {
   return (
-    <ShopNavigator></ShopNavigator>
+    <TabNavigator></TabNavigator>
   );
 }

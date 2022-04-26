@@ -1,10 +1,10 @@
 import React from 'react'
-import { Button, View } from 'react-native'
+import { View, Text } from 'react-native'
 
 export default function BreadDetailScreen() {
   return (
     <View>
-        Im bread
+      <Text>Im bread</Text>
     </View>
   )
 }
